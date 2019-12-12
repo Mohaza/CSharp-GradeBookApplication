@@ -12,5 +12,49 @@ namespace GradeBook.GradeBooks
         {
             Type = Enums.GradeBookType.Ranked;
         }
+
+        public override char GetLetterGrade(double averageGrade)
+        {
+           
+
+            if (Students.Count < 5)
+            {
+                throw new InvalidOperationException();
+            }
+           
+            switch (averageGrade)
+            {
+                case var d when d >= 80:
+                    return 'A';
+                case var d when d < 80 && d >= 60:
+                    return 'B';
+                case var d when d < 60 && d >= 40:
+                    return 'C';
+                case var d when d < 40 && d >= 20:
+                    return 'D';
+                default:
+                    return 'F';
+            }
+        }
+        public override void CalculateStatistics()
+        {
+            List<Student> available = Students.FindAll(student => student.Grades.Count == 0);
+            if (available.Count < 5)
+            {
+                Console.WriteLine("Ranked grading requires at least 5 students with grades in order to properly calculate a student's overall grade.");
+            }
+           
+            base.CalculateStatistics();
+           
+        }
+        public override void CalculateStudentStatistics(string name)
+        {
+            List<Student> available = Students.FindAll(student => student.Grades.Count == 0);
+            if(available.Count< 5)
+            {
+                Console.WriteLine("Ranked grading requires at least 5 students with grades in order to properly calculate a student's overall grade.");
+            }
+            base.CalculateStudentStatistics(name);
+        }
     }
 }
