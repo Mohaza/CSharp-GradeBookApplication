@@ -36,6 +36,7 @@ namespace GradeBook.GradeBooks
                     return 'F';
             }
         }
+
         public override void CalculateStatistics()
         {
             List<Student> available = Students.FindAll(student => student.Grades.Count == 0);
@@ -56,5 +57,8 @@ namespace GradeBook.GradeBooks
             }
             base.CalculateStudentStatistics(name);
         }
+
+        
+
     }
 }
